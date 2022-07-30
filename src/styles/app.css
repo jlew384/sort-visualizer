@@ -8,16 +8,64 @@ body {
   height: 100vh;
 }
 
+button {
+  background-color: rgb(49, 49, 49);
+  border: none;
+  padding: 4px;
+  font-size: 16px;
+  color: rgb(103, 105, 190);
+  font-weight: bold;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+button:disabled {
+  color: rgb(3, 3, 3);
+}
+
+.selected:disabled {
+  color: rgb(144, 146, 255);
+}
+
 #navbar {
-  color: rgb(236, 236, 236);
+  color: rgb(206, 206, 206);
   background-color: rgb(61, 61, 61);
-  height: 50px;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
   box-shadow: 0 0px 10px black;
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  justify-content: space-around;
   align-items: center;
-  padding: 0 20px;
+  padding: 5px;
   z-index: 10;
+}
+#navbar p {
+  font-size: 14px;
+}
+#navbar button {
+  margin: 2px 2px;
+}
+#navbar #settings-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#navbar #sort-btn-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#navbar #sort-btn-container div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 #viewer {
@@ -28,7 +76,7 @@ body {
 }
 
 #bar-container {
-  height: 88vh;
+  height: 80vh;
   width: 95%;
   display: flex;
   justify-content: space-evenly;
@@ -61,7 +109,7 @@ body {
     background-color: rgb(82, 83, 172);
   }
   5% {
-    background-color: rgb(113, 118, 204);
+    background-color: rgb(102, 108, 231);
   }
   100% {
     background-color: rgb(82, 83, 172);
@@ -73,24 +121,12 @@ body {
     background-color: rgb(82, 83, 172);
   }
   5% {
-    background-color: rgb(113, 118, 204);
+    background-color: rgb(102, 108, 231);
   }
   100% {
     background-color: rgb(82, 83, 172);
   }
 }
-#settings-container {
-  width: 20vw;
-  display: flex;
-  justify-content: space-around;
-}
-
-#sort-btn-container {
-  width: 40vw;
-  display: flex;
-  justify-content: space-around;
-}
-
 ul {
   height: 100%;
   display: flex;

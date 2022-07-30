@@ -26,7 +26,7 @@ class App extends React.Component {
       sortAction: "",
       actionIndexes: [],
       intervalTime: 10,
-      
+      sortMethod: ""
     };
 
     this.heapSort = this.heapSort.bind(this);
@@ -38,12 +38,44 @@ class App extends React.Component {
     this.resetArray = this.resetArray.bind(this);
   }
 
-  bubbleSort = () => this.animateSort(bubbleSort(this.state.array));
-  selectionSort = () => this.animateSort(selectionSort(this.state.array));
-  insertionSort = () => this.animateSort(insertionSort(this.state.array));
-  mergeSort = () => this.animateSort(mergeSort(this.state.array));
-  quickSort = () => this.animateSort(quickSort(this.state.array));
-  heapSort = () => this.animateSort(heapSort(this.state.array));
+  bubbleSort = () => {
+    this.setState({
+      sortMethod: 'bubble'
+    })
+    this.animateSort(bubbleSort(this.state.array));
+  }
+  selectionSort = () => {
+    this.setState({
+      sortMethod: 'selection'
+    })
+    this.animateSort(selectionSort(this.state.array));
+  }
+  insertionSort = () => {
+    this.setState({
+      sortMethod: 'insertion'
+    })
+    this.animateSort(insertionSort(this.state.array));
+  } 
+  mergeSort = () => {
+    this.setState({
+      sortMethod: 'merge'
+    })
+    this.animateSort(mergeSort(this.state.array));
+  } 
+  quickSort = () => {
+
+    this.setState({
+      sortMethod: 'quick'
+    })
+    this.animateSort(quickSort(this.state.array));
+  }
+  
+  heapSort = () => {
+    this.setState({
+      sortMethod: 'heap'
+    })
+    this.animateSort(heapSort(this.state.array));
+  }
 
   setSpeed(event) {
     console.log([event.target.value]);
@@ -77,7 +109,8 @@ class App extends React.Component {
         animateOn: false,
         animateIndex: -1,
         sortAction: "",
-        actionIndexes: []
+        actionIndexes: [],
+        sortMethod: ""
       }; 
     });
   }
@@ -138,6 +171,7 @@ class App extends React.Component {
     return (
       <div id="app">        
         <Navbar 
+          sortMethod={this.state.sortMethod}
           setSpeed={this.setSpeed.bind(this)}
           animateOn={this.state.animateOn}
           resetArray={this.resetArray}

@@ -1,7 +1,7 @@
 import { SortAction } from "../helpers/SortAnimation"
 
 export const Viewer = (props) => {
-    let barWidth = 100 / props.array.length - 0.4;
+    let barWidth = 100 / props.array.length - 0.8;
     return (
         <div id="viewer">
             <div id="bar-container">
