@@ -1,7 +1,6 @@
 import { SortAnimation } from "../helpers/SortAnimation";
 
-export function heapSort(array) {
-    const anim = new SortAnimation();
+export function heapSort(anim) {
 
     let heapify = (arr, length, i) => {
       let parent = i;
@@ -51,7 +50,7 @@ export function heapSort(array) {
       }
     }
 
-    let arr = array.slice();
+    let arr = anim.array.slice();
     sort(arr);
     anim.addCompleteStep();
     return anim;

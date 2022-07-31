@@ -1,11 +1,13 @@
 export const SortAction = {
+    Start: 'Start',
     Swap: 'Swap',
     Compare: 'Compare',
     Done: 'Done'
 };
 
 export class SortAnimation {
-    constructor() {
+    constructor(array) {
+        this.array = array;
         this.steps = [];
     }
 
@@ -15,6 +17,13 @@ export class SortAnimation {
 
     getStep(index) {
         return this.steps[index];
+    }
+
+    addStartStep() {
+        this.steps.push({
+            action: SortAction.Start,
+            indexes: Array.from(Array(this.array.length).keys())
+        })
     }
 
     addSwapStep(i1, i2) {
@@ -34,7 +43,7 @@ export class SortAnimation {
     addCompleteStep() {
         this.steps.push({
             action: SortAction.Done,
-            indexes: Array.from(Array(this.steps.length).keys())
+            indexes: Array.from(Array(this.array.length).keys())
         });
     }
 }

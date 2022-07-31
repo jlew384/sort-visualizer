@@ -8,88 +8,67 @@ import { mergeSort } from '../sorting-algorithms/mergeSort';
 import { quickSort } from '../sorting-algorithms/quickSort';
 import { heapSort } from '../sorting-algorithms/heapSort';
 import { generateRandomArray } from '../helpers/generateRandomArray';
-import { SortAction } from '../helpers/SortAnimation';
+import { SortAction, SortAnimation } from '../helpers/SortAnimation';
+import { isArraySorted } from '../helpers/isArraySorted';
 import '../styles/app.css';
+import { BUBBLE_SORT, HEAP_SORT, INSERTION_SORT, MAX_ARRAY_SIZE, MAX_INTERVAL, MERGE_SORT, MIN_ARRAY_SIZE, MIN_INTERVAL, QUICK_SORT, SELECTION_SORT } from '../constants/global';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
-    const defaultArraySize = 80;
-    const defaultArray = generateRandomArray(defaultArraySize);
-
     this.state = {
-      array: defaultArray,
-      arraySize: defaultArraySize,
+      array: generateRandomArray(MAX_ARRAY_SIZE),
+      arraySize: MAX_ARRAY_SIZE,
       animateOn: false,
       animateIndex: -1,
       sortAction: "",
       actionIndexes: [],
-      intervalTime: 10,
-      sortMethod: ""
+      intervalTime: MIN_INTERVAL,
+      sortMethodName: ""
     };
-
-    this.heapSort = this.heapSort.bind(this);
-    this.quickSort = this.quickSort.bind(this);
-    this.mergeSort = this.mergeSort.bind(this);
-    this.insertionSort = this.insertionSort.bind(this);
-    this.selectionSort = this.selectionSort.bind(this);
-    this.bubbleSort = this.bubbleSort.bind(this);
-    this.resetArray = this.resetArray.bind(this);
   }
 
-  bubbleSort = () => {
-    this.setState({
-      sortMethod: 'bubble'
-    })
-    this.animateSort(bubbleSort(this.state.array));
-  }
-  selectionSort = () => {
-    this.setState({
-      sortMethod: 'selection'
-    })
-    this.animateSort(selectionSort(this.state.array));
-  }
-  insertionSort = () => {
-    this.setState({
-      sortMethod: 'insertion'
-    })
-    this.animateSort(insertionSort(this.state.array));
-  } 
-  mergeSort = () => {
-    this.setState({
-      sortMethod: 'merge'
-    })
-    this.animateSort(mergeSort(this.state.array));
-  } 
-  quickSort = () => {
+  sort = (event) => {
+    let array = this.state.array.slice();
+    if(isArraySorted(array)) {
+      array = generateRandomArray(array.length);
+    }
 
-    this.setState({
-      sortMethod: 'quick'
-    })
-    this.animateSort(quickSort(this.state.array));
-  }
-  
-  heapSort = () => {
-    this.setState({
-      sortMethod: 'heap'
-    })
-    this.animateSort(heapSort(this.state.array));
-  }
+    const sortMethodName = event.target.value;
+    const animation = new SortAnimation(array);
 
-  setSpeed(event) {
-    console.log([event.target.value]);
-    const percent = event.target.value;
-    const minIntervalTime = 5;
-    const maxIntervalTime = 600;
-    const intervalRange = maxIntervalTime - minIntervalTime;
-    const intervalTime = maxIntervalTime - intervalRange * percent / 100;
-
+    switch(sortMethodName) {
+      case BUBBLE_SORT:
+        this.playSortAnimation(bubbleSort(animation), sortMethodName);
+        break;
+      case SELECTION_SORT:
+        this.playSortAnimation(selectionSort(animation), sortMethodName);
+        break;
+      case INSERTION_SORT:
+        this.playSortAnimation(insertionSort(animation), sortMethodName);
+        break;
+      case MERGE_SORT:
+        this.playSortAnimation(mergeSort(animation), sortMethodName);
+        break;
+      case QUICK_SORT:
+        this.playSortAnimation(quickSort(animation), sortMethodName);
+        break;
+      case HEAP_SORT:
+        this.playSortAnimation(heapSort(animation), sortMethodName);
+        break;
+    }
     
-    const minArraySize = 6;
-    const maxArraySize = 80;
-    const arraySizeRange = maxArraySize - minArraySize;
-    const arraySize = Math.round(minArraySize + arraySizeRange * percent / 100)
+  }
+
+  setSpeedAndSize(event) {
+    const percent = event.target.value;
+
+    const intervalRange = MAX_INTERVAL - MIN_INTERVAL;
+    const intervalTime = MAX_INTERVAL - intervalRange * percent / 100;
+
+    const arraySizeRange = MAX_ARRAY_SIZE - MIN_ARRAY_SIZE;
+    const arraySize = Math.round(MIN_ARRAY_SIZE + arraySizeRange * percent / 100)
 
 
     this.setState({
@@ -115,26 +94,15 @@ class App extends React.Component {
     });
   }
 
-  checkIfSorted(arr) {
-    for(let i = 1; i < arr.length; i++) {
-      if(arr[i] < arr[i - 1]) {
-        return false;
-      }
-    }
-    return true;
-  }
-
-  animateSort(anim) {
-    if(this.checkIfSorted(this.state.array)) {
-      this.resetArray();
-      return;
-    }
+  playSortAnimation(anim, sortMethodName) {
 
     this.setState((prevState) => {
       if(prevState.animateIndex < 0 && !prevState.animateOn) {
         return {
+          array: anim.array.slice(),
           animateOn: true,
-          animateIndex: 0
+          animateIndex: 0,
+          sortMethodName: sortMethodName
         }
       }
     });
@@ -149,6 +117,7 @@ class App extends React.Component {
           }
         }
         else {
+          
           let step = anim.getStep(prevState.animateIndex);
           let arr = prevState.array.slice();
           if(step.action == SortAction.Swap) {
@@ -171,16 +140,11 @@ class App extends React.Component {
     return (
       <div id="app">        
         <Navbar 
-          sortMethod={this.state.sortMethod}
-          setSpeed={this.setSpeed.bind(this)}
+          sortMethod={this.sort.bind(this)}
+          sortMethodName={this.state.sortMethodName}
+          setSpeedAndSize={this.setSpeedAndSize.bind(this)}
           animateOn={this.state.animateOn}
-          resetArray={this.resetArray}
-          bubbleSort={this.bubbleSort}
-          selectionSort={this.selectionSort} 
-          insertionSort={this.insertionSort}
-          mergeSort={this.mergeSort}
-          quickSort={this.quickSort}
-          heapSort={this.heapSort}
+          resetArray={this.resetArray.bind(this)}
         />
         <Viewer array={this.state.array} actionIndexes={this.state.actionIndexes} sortAction={this.state.sortAction} />
       </div>

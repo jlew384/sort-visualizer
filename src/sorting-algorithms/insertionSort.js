@@ -1,8 +1,7 @@
 import { SortAnimation } from "../helpers/SortAnimation";
 
-export function insertionSort(array) {
-    const anim = new SortAnimation();
-    let arr = array.slice();
+export function insertionSort(anim) {
+    let arr = anim.array.slice();
     for(let i = 1; i < arr.length; i++) {
       let j = i;
       for(let j = i; j > 0; j--) {

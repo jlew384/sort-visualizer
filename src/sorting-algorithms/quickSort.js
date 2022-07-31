@@ -1,7 +1,8 @@
+import { generateRandomArray } from "../helpers/generateRandomArray";
+import { isArraySorted } from "../helpers/isArraySorted";
 import { SortAnimation } from "../helpers/SortAnimation";
 
-export function quickSort(array) {
-    const anim = new SortAnimation();
+export function quickSort(anim) {
 
     let partition = (arr, start, end) => {
       let pivot = arr[end];
@@ -38,9 +39,8 @@ export function quickSort(array) {
         sort(arr, pivot + 1, end);
       }
     }
-
-    let arr = array.slice();
-
+   
+    let arr = anim.array.slice();
     sort(arr, 0 , arr.length - 1);
     anim.addCompleteStep();
     return anim;

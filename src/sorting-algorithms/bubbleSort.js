@@ -1,8 +1,7 @@
 import { SortAction, SortAnimation } from "../helpers/SortAnimation";
 
-export function bubbleSort(array) {
-    let arr = array.slice();
-    let anim = new SortAnimation();
+export function bubbleSort(anim) {
+    let arr = anim.array.slice();
 
     for(let i = 0; i < arr.length; i++) {
       let sorted = true;

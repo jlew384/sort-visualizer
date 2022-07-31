@@ -1,8 +1,7 @@
 import { SortAnimation } from "../helpers/SortAnimation";
 
-export function selectionSort(array) {
-    const anim = new SortAnimation();
-    let arr = array.slice();
+export function selectionSort(anim) {
+    let arr = anim.array.slice();
 
     for(let i = 0; i < arr.length; i++) {
       let minIndex = i;

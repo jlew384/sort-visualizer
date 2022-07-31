@@ -1,7 +1,6 @@
 import { SortAnimation } from "../helpers/SortAnimation";
 
-export function mergeSort(array) {
-    const anim = new SortAnimation();
+export function mergeSort(anim) {
     let nextGap = (gap) => {
       if(gap <= 1) {
         return 0;
@@ -38,9 +37,7 @@ export function mergeSort(array) {
     }
 
     
-    let arr = array.slice();
-    let steps = [];
-
+    let arr = anim.array.slice();
     sort(arr, 0, arr.length);
     anim.addCompleteStep();
     return anim;

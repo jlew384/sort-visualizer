@@ -13,8 +13,11 @@ export const Viewer = (props) => {
                         else if(props.sortAction == SortAction.Swap) {
                             return (<div key={index} className="num swap" style={{height: num + "%", width: barWidth + "%"}}></div>)
                         }
-                        else {
+                        else if(props.sortAction == SortAction.Done) {
                             return (<div key={index} className="num done" style={{height: num + "%", width: barWidth + "%"}}></div>)
+                        }
+                        else {
+                            return (<div key={index} className="num" style={{height: num + "%", width: barWidth + "%"}}></div>)
                         }
                         
                     }
