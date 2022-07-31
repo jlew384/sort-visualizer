@@ -108,15 +108,17 @@ class App extends React.Component {
     });
     
     this.animateInterval = setInterval(() => {
+      console.log('hello');
       this.setState((prevState) => {
-        if(prevState.animateIndex > anim.length - 1) {
-          clearInterval(this.animateInterval);
+        if(prevState.animateIndex == anim.length) {
+          // timeout to fix animation break on finish in safari
+          setTimeout(clearInterval(this.animateInterval), 20);
           return {
             animateOn: false,
             animateIndex: -1
           }
         }
-        else {
+        else if(prevState.animateIndex < anim.length) {
           
           let step = anim.getStep(prevState.animateIndex);
           let arr = prevState.array.slice();
