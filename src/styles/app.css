@@ -32,6 +32,7 @@ button:disabled {
 #navbar {
   color: rgb(206, 206, 206);
   background-color: rgb(61, 61, 61);
+  background-image: linear-gradient(rgb(48, 48, 48), rgb(61, 61, 61));
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
@@ -71,12 +72,12 @@ button:disabled {
 #viewer {
   display: flex;
   justify-content: center;
-  height: 100%;
+  height: 60vh;
   z-index: -1;
 }
 
 #bar-container {
-  height: 80vh;
+  height: 100%;
   width: 95%;
   display: flex;
   justify-content: space-evenly;
