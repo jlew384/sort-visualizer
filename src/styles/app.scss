@@ -7,9 +7,26 @@ $text-color: rgb(206, 206, 206);
     padding: 0;
 }
 
-body {
+html,
+body,
+#root,
+#app {
+    
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    min-width: 100vw;
+    width: -webkit-fill-available;
+    min-height: 100%;
+    height: -webkit-fill-available;
+}
+
+html {
     background-image: linear-gradient($darker-color, rgb(19, 19, 19));
-    height: 100vh;
+}
+
+body {
+    
 }
 
 button {
@@ -97,7 +114,7 @@ button:disabled {
 
 .num {
     color: white;
-    background-color: rgb(82, 83, 172);
+    background-color: #5253ac;
     font-size: 10px;
     text-align: center;
     //box-shadow: 2px -2px 3px inset rgba(255, 255, 255, 0.205);
